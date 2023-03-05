@@ -1,6 +1,14 @@
 {%  extends 'main.html' %}
 
 {% block content %}
+<head>
+	<meta charset="UTF-8">
+	<title>Bootstrap Datatable | Webdevtrick.com</title>
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/css/dataTables.bootstrap.min.css'>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,500" rel="stylesheet"/>
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+</head>
 <br>
 <br>
 <div class="row">
@@ -18,39 +26,54 @@
 	
 </div>
 <br>
-
 <div class="row">
 	<div class="col-md">
 		<div class="card card-body">
-			<table class="table table-sm">
-				<tr>
-					<th>Author</th>
-					<th>Author(Eng)</th>
-					<th>Work Title</th>
-					<th>Translator</th>
-					<th>Source Title</th>
-					<th>Year</th>
-					<th>Genre</th>
-					<th>Publisher</th>
-					<th>Update</th>
-				</tr>
-				{% for record in records %}
-				<tr>					
-                    <td>{{record.authorKorean}}</td>
-					<td>{{record.authorEnglish}}</td>
-					<td>{{record.workTitle}}</td>
-					<td>{{record.translator}}</td>
-					<td>{{record.sourceTitle}}</td>
-					<td>{{record.yearCreated}}</td>
-					<td>{{record.genre}}</td>
-					<td>{{record.publisher}}</td>
-					<td><a class="btn btn-outline-primary">Update</a></td>
-				</tr>
-				{% endfor %}
-
+			<table class="table responsive" id="sort" cellspacing="0" width="100%">
+				<thead>
+					<tr>
+						<th>Author</th>
+						<th>Author(Eng)</th>
+						<th>Work Title</th>
+						<th>Translator</th>
+						<th>Source Title</th>
+						<th>Year</th>
+						<th>Genre</th>
+						<th>Publisher</th>
+						<th style="display: none;">authorEnglish2</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for record in records %}
+					<tr>					
+						<td>{{record.authorKorean}}</td>
+						<td>{{record.authorEnglish}}</td>
+						<td>{{record.workTitle}}</td>
+						<td>{{record.translator}}</td>
+						<td>{{record.sourceTitle}}</td>
+						<td>{{record.yearCreated}}</td>
+						<td>{{record.genre}}</td>
+						<td>{{record.publisher}}</td>
+						<td style="display: none;">{{record.authorEnglish2}}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
 			</table>
 		</div>
 	</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/dataTables.bootstrap.min.js"></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/moment.min.js'></script>
+	<script  src="function.js"></script>
 </div>
-
+<script>
+// $(document).ready(function () {
+//     $('#dtBasicExample').DataTable();
+// });
+// Code By Webdevtrick ( https://webdevtrick.com )
+$(document).ready(function() {
+   $("#sort").DataTable();
+});
+</script>
 {% endblock %}

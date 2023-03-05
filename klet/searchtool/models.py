@@ -11,7 +11,7 @@ class Record(models.Model):
 			('Classic_General', 'Classic_General'),
 			('Classic_Poem', 'Classic_Poem'),
 			('Classic_History', 'Classic_History'),
-			('Classic_Flok Tale', 'Classic_Flok Tale'),
+			('Classic_Folk Tale', 'Classic_Folk Tale'),
 			('Classic_Fiction', 'Classic_Fiction'),
 			('Misc','Misc'))
 	authorKorean = models.CharField(max_length=100, null=True, blank=True ,default="")
@@ -21,4 +21,5 @@ class Record(models.Model):
 	translator = models.CharField(max_length=100, null=True, blank=True,default="")
 	sourceTitle = models.CharField(max_length=100, null=True, blank=True,default="")
 	publisher = models.CharField(max_length=100, null=True, blank=True,default="")
-	yearCreated = models.IntegerField(null=True, blank=True, default=0000)
+	yearCreated = models.FloatField(null=True, blank=True, default=00.00)
+	authorEnglish2 = models.CharField(max_length=300, null=True, blank=True, default="")
