@@ -21,5 +21,6 @@ class Record(models.Model):
 	translator = models.CharField(max_length=100, null=True, blank=True,default="")
 	sourceTitle = models.CharField(max_length=100, null=True, blank=True,default="")
 	publisher = models.CharField(max_length=100, null=True, blank=True,default="")
+	year = models.CharField(max_length=100,null=True, blank=True, default=" ")
 	yearCreated = models.FloatField(null=True, blank=True, default=00.00)
 	authorEnglish2 = models.CharField(max_length=300, null=True, blank=True, default="")

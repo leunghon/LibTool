@@ -11,61 +11,85 @@
 </head>
 <br>
 <br>
-<div class="row">
-	<div class="col">
-		<div class="card card-body">
-			<form method="get">
-                <div class="form-group">
-				    {{myFilter.form}}
-                </div>
-		    <button class="btn btn-primary" type="submit">Search</button>
-		  </form>
+<div class="col-lg-10">
+	<div class="row">
+		<div class="col">
+			<div class="card card-body">
+				<form method="get">
+					<div class="form-group">
+						{{myFilter.form}}
+					</div>
+				<button class="btn btn-primary" type="submit">Search</button>
+			</form>
 
+			</div>
 		</div>
+		
 	</div>
-	
+	<br>
+	<div class="row">
+		<div class="col-md">
+			<div class="card card-body">
+				<table class="table responsive" id="sort" cellspacing="0" width="100%">
+					<thead>
+						<tr>
+							<th>Author</th>
+							<th>Author(Eng)</th>
+							<th>Work Title</th>
+							<th>Translator</th>
+							<th>Source Title</th>
+							<th>Year</th>
+							<th>Genre</th>
+							<th>Publisher</th>
+							<th style="display: none;">authorEnglish2</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for record in records %}
+						<tr>					
+							<td>{{record.authorKorean}}</td>
+							<td>{{record.authorEnglish}}</td>
+							<td>{{record.workTitle}}</td>
+							<td>{{record.translator}}</td>
+							<td>{{record.sourceTitle}}</td>
+							<td>{{record.year}}</td>
+							<td>{{record.genre}}</td>
+							<td>{{record.publisher}}</td>
+							<td style="display: none;">{{record.authorEnglish2}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/dataTables.bootstrap.min.js"></script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/moment.min.js'></script>
+		<script  src="function.js"></script>
+	</div>
 </div>
-<br>
-<div class="row">
-	<div class="col-md">
-		<div class="card card-body">
-			<table class="table responsive" id="sort" cellspacing="0" width="100%">
-				<thead>
-					<tr>
-						<th>Author</th>
-						<th>Author(Eng)</th>
-						<th>Work Title</th>
-						<th>Translator</th>
-						<th>Source Title</th>
-						<th>Year</th>
-						<th>Genre</th>
-						<th>Publisher</th>
-						<th style="display: none;">authorEnglish2</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for record in records %}
-					<tr>					
-						<td>{{record.authorKorean}}</td>
-						<td>{{record.authorEnglish}}</td>
-						<td>{{record.workTitle}}</td>
-						<td>{{record.translator}}</td>
-						<td>{{record.sourceTitle}}</td>
-						<td>{{record.yearCreated}}</td>
-						<td>{{record.genre}}</td>
-						<td>{{record.publisher}}</td>
-						<td style="display: none;">{{record.authorEnglish2}}</td>
-					</tr>
+<div class="col-lg-2">
+	<div class="row">
+		<div class="col">
+			<h4>Authors English</h4>
+			<dv class="card card-body overflow-auto" style="height: 350px;margin-bottom: 25px;">
+				<ul>
+					{% for engName in NamesEng %}
+						<li><a href="{% url 'search' %}?authorEnglish2={{engName}}">{{engName}}</a></li>
 					{% endfor %}
-				</tbody>
-			</table>
+				</ul>
+			</div>
+			<h4>Authors Korean</h4>
+			<div class="card card-body overflow-auto" style="height: 350px;">
+				<ul>
+					{% for krName in NamesKr %}
+						<li><a href="{% url 'search' %}?authorKorean={{krName}}">{{krName}}</a></li>
+					{% endfor %}
+				</ul>
+			</div>
 		</div>
 	</div>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/dataTables.bootstrap.min.js"></script>
-	<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/moment.min.js'></script>
-	<script  src="function.js"></script>
 </div>
 <script>
 // $(document).ready(function () {

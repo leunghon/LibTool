@@ -3,7 +3,8 @@ from . import views
 
 urlpatterns = [
     path('/',views.home),
-    path('search/',views.search),
+    path('search/',views.search, name="search"),
     path('populatedatabase/',views.populateDatabase),
-    path('delete/',views.deleteDatabase)
+    path('delete/',views.deleteDatabase),
+    path('populateYear/',views.populateYear)
 ]
