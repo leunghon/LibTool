@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Sum, F, FloatField
 # Create your models here.
 
 
@@ -24,3 +25,8 @@ class Record(models.Model):
 	year = models.CharField(max_length=100,null=True, blank=True, default=" ")
 	yearCreated = models.FloatField(null=True, blank=True, default=00.00)
 	authorEnglish2 = models.CharField(max_length=300, null=True, blank=True, default="")
+	uid2 = models.CharField(max_length=100, default="Not Registered yet")
+
+
+
+# class AddRequest(models.Model):

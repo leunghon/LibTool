@@ -2,6 +2,7 @@ from django.shortcuts import render
 import pandas as pd
 from .models import *
 from .filters import *
+import uuid
 # Create your views here.
 
 def home(request):
@@ -59,16 +60,16 @@ def populateDatabase(request):
     for dbframe in df1.itertuples():
         obj = Record.objects.create(genre= GENRE[GenreDict[dbframe.GENRE]],authorEnglish = dbframe.authorEnglish, authorKorean = dbframe.authorKorean, 
         workTitle = dbframe.workTitle, translator = dbframe.translator, sourceTitle = dbframe.sourceTitle, 
-        publisher = dbframe.publisher, yearCreated = dbframe.yearCreated, authorEnglish2 = dbframe.authorEnglish2, year= str(dbframe.yearCreated).replace(".0",""))
+        publisher = dbframe.publisher, yearCreated = dbframe.yearCreated, authorEnglish2 = dbframe.authorEnglish2, year= str(dbframe.yearCreated).replace(".0",""), uid2 = str(uuid.uuid5()))
         obj.save()
     context = {'message':"Populating database completed"}
-    return render(request, 'populate.html', context)
+    return render(request, 'message.html', context)
 
 def deleteDatabase(request):
     records = Record.objects.all()
     records.delete()
-    context = {'message':"deleting database completed"}
-    return render(request, 'delete.html', context)
+    context = {'message':"deleting the whole database completed"}
+    return render(request, 'message.html', context)
 
 def populateYear(request):
     records = Record.objects.all()
@@ -76,3 +77,12 @@ def populateYear(request):
     for i in records:
         i.yearCreated = str(i.yearCreated).replace(".0","")
     records.save()
+
+def populateuuid(request):
+    records = Record.objects.all()
+    context = {'message':"Created uuid for all the records in the database"}
+    for i in records:
+        if len(i.year) > 4:
+            i.year = i.year[:len(i.year)-1]+'.'+i.year[len(i.year)-1:]
+            # i.save()
+    return render(request, 'message.html', context)
