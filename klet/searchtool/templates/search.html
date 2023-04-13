@@ -9,10 +9,8 @@
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,500" rel="stylesheet"/>
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
 </head>
-<br>
-<br>
 <div class="col-lg-10">
-	<div class="row">
+	<div class="row" id="welcomeDiv"  style="display:none;">
 		<div class="col">
 			<div class="card card-body">
 				<form method="get">
@@ -24,36 +22,35 @@
 
 			</div>
 		</div>
-		
+		<br>
 	</div>
-	<br>
 	<div class="row">
 		<div class="col-md">
-			<div class="card card-body">
+			<div class="card card-body" >
 				<table class="table responsive" id="sort" cellspacing="0" width="100%">
 					<thead>
 						<tr>
+							<th>Genre</th>
 							<th>Author</th>
 							<th>Author(Eng)</th>
 							<th>Work Title</th>
 							<th>Translator</th>
 							<th>Source Title</th>
 							<th>Year</th>
-							<th>Genre</th>
 							<th>Publisher</th>
 							<th style="display: none;">authorEnglish2</th>
 						</tr>
 					</thead>
 					<tbody>
 						{% for record in records %}
-						<tr>					
+						<tr>
+							<td>{{record.genre}}</td>					
 							<td>{{record.authorKorean}}</td>
 							<td>{{record.authorEnglish}}</td>
 							<td>{{record.workTitle}}</td>
 							<td>{{record.translator}}</td>
 							<td>{{record.sourceTitle}}</td>
 							<td>{{record.year}}</td>
-							<td>{{record.genre}}</td>
 							<td>{{record.publisher}}</td>
 							<td style="display: none;">{{record.authorEnglish2}}</td>
 						</tr>
@@ -71,20 +68,21 @@
 </div>
 <div class="col-lg-2">
 	<div class="row">
+		<button type="button" id="AdvSearch" class="btn btn-primary" onclick="showDiv()">Advanced Search</button>
 		<div class="col">
-			<h4>Authors English</h4>
-			<dv class="card card-body overflow-auto" style="height: 350px;margin-bottom: 25px;">
-				<ul>
-					{% for engName in NamesEng %}
-						<li><a href="{% url 'search' %}?authorEnglish2={{engName}}">{{engName}}</a></li>
-					{% endfor %}
-				</ul>
-			</div>
 			<h4>Authors Korean</h4>
-			<div class="card card-body overflow-auto" style="height: 350px;">
+			<div class="card card-body overflow-auto" style="height: 300px;">
 				<ul>
 					{% for krName in NamesKr %}
 						<li><a href="{% url 'search' %}?authorKorean={{krName}}">{{krName}}</a></li>
+					{% endfor %}
+				</ul>
+			</div>
+			<h4>Authors English</h4>
+			<div class="card card-body overflow-auto" style="height: 300px;margin-bottom: 25px;">
+				<ul>
+					{% for engName in NamesEng %}
+						<li><a href="{% url 'search' %}?authorEnglish2={{engName}}">{{engName}}</a></li>
 					{% endfor %}
 				</ul>
 			</div>
@@ -92,12 +90,20 @@
 	</div>
 </div>
 <script>
-// $(document).ready(function () {
-//     $('#dtBasicExample').DataTable();
-// });
-// Code By Webdevtrick ( https://webdevtrick.com )
 $(document).ready(function() {
    $("#sort").DataTable();
 });
+function showDiv() {
+	if(document.getElementById('welcomeDiv').style.display == "none")
+	{
+		document.getElementById('welcomeDiv').style.display = "block";
+		document.getElementById('AdvSearch').className="btn btn-secondary"
+	}
+	else
+	{
+		document.getElementById('welcomeDiv').style.display = "none";
+		document.getElementById('AdvSearch').className="btn btn-primary"
+	}
+}
 </script>
 {% endblock %}
