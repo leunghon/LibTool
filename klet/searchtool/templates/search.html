@@ -17,9 +17,10 @@
 					<div class="form-group">
 						{{myFilter.form}}
 					</div>
-				<button class="btn btn-primary" type="submit">Search</button>
-			</form>
-
+					<button class="btn btn-primary" type="submit">
+						Search
+					</button>
+				</form>
 			</div>
 		</div>
 		<br>
@@ -33,9 +34,9 @@
 							<th>Genre</th>
 							<th>Author</th>
 							<th>Author(Eng)</th>
-							<th>Work Title</th>
+							<th>Translation Title</th>
 							<th>Translator</th>
-							<th>Source Title</th>
+							<th>Source</th>
 							<th>Year</th>
 							<th>Publisher</th>
 							<th style="display: none;">authorEnglish2</th>
@@ -44,14 +45,51 @@
 					<tbody>
 						{% for record in records %}
 						<tr>
-							<td>{{record.genre}}</td>					
+							{% if record.genre == "nan" %}
+							<td></td>
+							{% else %}
+							<td>{{record.genre}}</td>
+							{% endif %}	
+
+							{% if record.authorKorean == "nan" %}
+							<td></td>
+							{% else %}
 							<td>{{record.authorKorean}}</td>
+							{% endif %}			
+							
+							{% if record.authorEnglish == "nan" %}
+							<td></td>
+							{% else %}
 							<td>{{record.authorEnglish}}</td>
+							{% endif %}	
+
+							{% if record.workTitle == "nan" %}
+							<td></td>
+							{% else %}
 							<td>{{record.workTitle}}</td>
+							{% endif %}	
+
+							{% if record.translator == "nan" %}
+							<td></td>
+							{% else %}
 							<td>{{record.translator}}</td>
+							{% endif %}	
+							
+							{% if record.sourceTitle == "nan" %}
+							<td></td>
+							{% else %}
 							<td>{{record.sourceTitle}}</td>
+							{% endif %}	
+							{%if record.year == "nan" %}
+							<td></td>
+							{% else %}
 							<td>{{record.year}}</td>
+							{% endif %}	
+							{%if record.publisher == "nan" %}
+							<td></td>
+							{% else %}
 							<td>{{record.publisher}}</td>
+							{% endif %}	
 							<td style="display: none;">{{record.authorEnglish2}}</td>
 						</tr>
 						{% endfor %}
@@ -92,17 +130,22 @@
 <script>
 $(document).ready(function() {
    $("#sort").DataTable();
+   document.getElementsByClassName("form-control").style="width:500px;background-color:#CBDCFF";
+   document.getElementsByClassName("form-control-sm").style="width:500px;background-color:#CBDCFF";
+   document.getElementsByClassName("form-control").placeholder="Search for any key word";
+   document.getElementsByClassName("form-control-sm").placeholder="Search for any key word";
 });
 function showDiv() {
 	if(document.getElementById('welcomeDiv').style.display == "none")
 	{
 		document.getElementById('welcomeDiv').style.display = "block";
-		document.getElementById('AdvSearch').className="btn btn-secondary"
+		document.getElementById('AdvSearch').className="btn btn-secondary";
+		document.getElementById('AdvSearch').innerHTML="Search";
 	}
 	else
 	{
 		document.getElementById('welcomeDiv').style.display = "none";
-		document.getElementById('AdvSearch').className="btn btn-primary"
+		document.getElementById('AdvSearch').className="btn btn-primary";
 	}
 }
 </script>

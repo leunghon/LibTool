@@ -6,6 +6,7 @@ urlpatterns = [
     path('search/',views.search, name="search"),
     path('populatedatabase/',views.populateDatabase),
     path('delete/',views.deleteDatabase),
-    path('populateYear/',views.populateYear),
-    path('populateUuid/',views.populateuuid)
+    path('populateYear/',views.updateYear),
+    path('populateUuid/',views.populateuuid),
+    path('populateAlternames/',views.populateAlternateNames)
 ]
