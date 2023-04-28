@@ -15,9 +15,9 @@ def search(request):
     namesEng = []
     namesKr = []
     for i in records:
-        if i.authorEnglish:
+        if i.authorEnglish and i.authorEnglish!= "nan":            
             namesEng.append(i.authorEnglish)
-        if i.authorKorean:
+        if i.authorKorean  and i.authorEnglish!= "nan":
             namesKr.append(i.authorKorean)
     newNamesEng = [*set(namesEng)]
     newNamesKr = [*set(namesKr)]
@@ -27,7 +27,7 @@ def search(request):
     newNamesKr = [i for a,i in enumerate(newNamesKr) if i!=' ']
     myFilter = RecordFilter(request.GET, queryset = records)
     records = myFilter.qs
-    context = {'records':records,'myFilter':myFilter, 'NamesEng':newNamesEng,'NamesKr':newNamesKr, 'newRecordForm': NewRecordForm()}
+    context = {'records':records,'myFilter':myFilter, 'NamesEng':newNamesEng,'NamesKr':newNamesKr}
     return render(request,'search.html',context)
 
 def generateAuthorLinks(names):
@@ -113,4 +113,13 @@ def populateAlternateNames(request):
             i.authorEnglish2 = i.authorEnglish2 + ",".join(authors[i.authorKorean])
             print(i.authorKorean+" : "+i.authorEnglish2)
             # i.save()
+    return render(request, 'message.html', context)
+
+def changeAnything(request):
+    records = Record.objects.all()
+    context = {'message': 'change in database based on what is defined in changeAnything'}
+    for i in records:
+        if i.authorEnglish == "ahn soo-gil": #Find the record to make changes here for updating a record and access the URL
+            i.authorEnglish = "Ahn Soo-Gil"  # Update the record
+        # i.save()
     return render(request, 'message.html', context)

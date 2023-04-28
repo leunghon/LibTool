@@ -1,23 +1,56 @@
 {%  extends 'main.html' %}
 
 {% block content %}
+<style>
+	/* @font-face 
+	{
+    font-family: myFirstFont;
+    src: url(ArianaVioleta-dz2K.ttf);
+	} */
+	.btn-primary
+	{
+		background-color: #4b2e83 !important;
+	}
+	.btn-secondary
+	{
+		background-color: #85754d !important;
+	}
+	.page-link
+	{
+		/* background-color: #4b2e83 !important; */
+	}
+	.pagination
+	{
+		--bs-pagination-active-bg: #4b2e83 !important;
+	}
+	.pagination>.active>a
+	{
+		background-color: #4b2e83 !important;
+		color: white  !important;
+	}
+	a
+	{
+		color:  #4b2e83 !important;
+	}
+</style>
 <head>
 	<meta charset="UTF-8">
-	<title>Bootstrap Datatable | Webdevtrick.com</title>
+	<link rel="stylesheet" href='/searchtool/templates/style/customstyle.css'>
 	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/css/dataTables.bootstrap.min.css'>
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,500" rel="stylesheet"/>
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 </head>
-<div class="col-lg-10">
-	<div class="row" id="welcomeDiv"  style="display:none;">
+<div class="col-lg-10" style="height: max-content;">
+	<div class="row" id="basicSearch"  style="display:none;">
 		<div class="col">
 			<div class="card card-body">
 				<form method="get">
 					<div class="form-group">
 						{{myFilter.form}}
 					</div>
-					<button class="btn btn-primary" type="submit">
+					<button class="btn btn-primary" style="background-color: #4b2e83;" type="submit">
 						Search
 					</button>
 				</form>
@@ -109,7 +142,7 @@
 		<button type="button" id="AdvSearch" class="btn btn-primary" onclick="showDiv()">Advanced Search</button>
 		<div class="col">
 			<h4>Authors Korean</h4>
-			<div class="card card-body overflow-auto" style="height: 300px;">
+			<div class="card card-body overflow-auto" style="height: 250px;">
 				<ul>
 					{% for krName in NamesKr %}
 						<li><a href="{% url 'search' %}?authorKorean={{krName}}">{{krName}}</a></li>
@@ -117,7 +150,7 @@
 				</ul>
 			</div>
 			<h4>Authors English</h4>
-			<div class="card card-body overflow-auto" style="height: 300px;margin-bottom: 25px;">
+			<div class="card card-body overflow-auto" style="height: 250px;margin-bottom: 15px;">
 				<ul>
 					{% for engName in NamesEng %}
 						<li><a href="{% url 'search' %}?authorEnglish2={{engName}}">{{engName}}</a></li>
@@ -125,32 +158,58 @@
 				</ul>
 			</div>
 		</div>
-		<dialog> <p>{{newRecordForm}}</p> <button id="close">Exit</button> </dialog> <button id="show">New Record</button>
+		<!-- Button -->
+		<!-- <button class="btn btn-primary" >New Record</button> -->
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+			New Record
+		</button>		
+		<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">New record request form</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				</div>
+				<div class="modal-body">
+				Form to fill and request the new record will appear here!!
+				</div>
+				<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Submit</button>
+				</div>
+			</div>
+			</div>
+		</div>
 	</div>
 </div>
 <script>
-$(document).ready(function() {
-   $("#sort").DataTable();
-   document.getElementsByClassName("form-control").style="width:500px;background-color:#CBDCFF";
-   document.getElementsByClassName("form-control-sm").style="width:500px;background-color:#CBDCFF";
-   document.getElementsByClassName("form-control").placeholder="Search for any key word";
-   document.getElementsByClassName("form-control-sm").placeholder="Search for any key word";
-});
-function showDiv() {
-	if(document.getElementById('welcomeDiv').style.display == "none")
-	{
-		document.getElementById('welcomeDiv').style.display = "block";
-		document.getElementById('AdvSearch').className="btn btn-secondary";
-		document.getElementById('AdvSearch').innerHTML="Search";
+	$(document).ready(function() {
+	$("#sort").DataTable();
+	document.getElementsByClassName("form-control").style="width:500px;background-color:#CBDCFF";
+	document.getElementsByClassName("form-control-sm").style="width:500px;background-color:#CBDCFF";
+	document.getElementsByClassName("form-control").placeholder="Search for any key word";
+	document.getElementsByClassName("form-control-sm").placeholder="Search for any key word";
+	$('#exampleModalCenter').on('shown.bs.modal', function () {
+			$('#myInput').trigger('focus')
+		})
+	});
+	function showDiv() {
+		if(document.getElementById('basicSearch').style.display == "none")
+		{
+			document.getElementById('basicSearch').style.display = "block";
+			document.getElementById('AdvSearch').className="btn btn-secondary";
+			document.getElementById('AdvSearch').innerHTML="Search";
+		}
+		else
+		{
+			document.getElementById('basicSearch').style.display = "none";
+			document.getElementById('AdvSearch').className="btn btn-primary";
+			document.getElementById('AdvSearch').innerHTML="Advanced Search";
+		}
 	}
-	else
-	{
-		document.getElementById('welcomeDiv').style.display = "none";
-		document.getElementById('AdvSearch').className="btn btn-primary";
-	}
-}
-var dialog = document.querySelector('dialog'); 
-document.querySelector('#show').onclick = function() { dialog.show(); };
-document.querySelector('#close').onclick = function() { dialog.close(); };
 </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 {% endblock %}
