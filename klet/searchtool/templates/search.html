@@ -125,6 +125,7 @@
 				</ul>
 			</div>
 		</div>
+		<dialog> <p>{{newRecordForm}}</p> <button id="close">Exit</button> </dialog> <button id="show">New Record</button>
 	</div>
 </div>
 <script>
@@ -148,5 +149,8 @@ function showDiv() {
 		document.getElementById('AdvSearch').className="btn btn-primary";
 	}
 }
+var dialog = document.querySelector('dialog'); 
+document.querySelector('#show').onclick = function() { dialog.show(); };
+document.querySelector('#close').onclick = function() { dialog.close(); };
 </script>
 {% endblock %}

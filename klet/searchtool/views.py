@@ -4,6 +4,7 @@ from .models import *
 from .filters import *
 import uuid
 import numpy
+from .forms import *
 # Create your views here.
 
 def home(request):
@@ -26,17 +27,7 @@ def search(request):
     newNamesKr = [i for a,i in enumerate(newNamesKr) if i!=' ']
     myFilter = RecordFilter(request.GET, queryset = records)
     records = myFilter.qs
-    context = {'records':records,'myFilter':myFilter, 'NamesEng':newNamesEng,'NamesKr':newNamesKr}
-    for i in records:
-        if len(i.year) < 4:
-            print("this is the year ", i.year, "for", i.sourceTitle)
-            if i.year == None:
-                print("is it nan")
-            if not i.year:
-                print("is it nan")
-            if i.year == "nan":
-                print("it is a string nan")
-            # print(type(i.sourceTitle))
+    context = {'records':records,'myFilter':myFilter, 'NamesEng':newNamesEng,'NamesKr':newNamesKr, 'newRecordForm': NewRecordForm()}
     return render(request,'search.html',context)
 
 def generateAuthorLinks(names):
@@ -93,7 +84,7 @@ def updateYear(request):
         year = i.year
         if len(year) > 4 and year.find('.') == -1:
             i.year = i.year[:len(i.year)-1]+'.'+i.year[len(i.year)-1:]
-            i.save()
+            # i.save()
     return render(request, 'message.html', context)
 
 def populateuuid(request):
