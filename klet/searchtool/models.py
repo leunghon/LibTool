@@ -18,6 +18,7 @@ class Record(models.Model):
 	authorKorean = models.CharField(max_length=100, null=True, blank=True ,default="")
 	authorEnglish = models.CharField(max_length=100, null=True, blank=True,default="")
 	workTitle = models.CharField(max_length=100, null=True, blank=True,default="")
+	workTitleKorean = models.CharField(max_length=100, null=True, blank=True,default="")
 	genre= models.CharField(max_length=200, null=True, choices=GENRE, blank=True, default=GENRE[1])
 	translator = models.CharField(max_length=100, null=True, blank=True,default="")
 	sourceTitle = models.CharField(max_length=100, null=True, blank=True,default="")

@@ -7,7 +7,6 @@ urlpatterns = [
     path('populatedatabase/',views.populateDatabase),
     path('delete/',views.deleteDatabase),
     path('populateYear/',views.updateYear),
-    path('populateUuid/',views.populateuuid),
     path('populateAlternames/',views.populateAlternateNames),
     path('updateRec/',views.changeAnything)
 ]

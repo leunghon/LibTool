@@ -17,7 +17,7 @@ def search(request):
     for i in records:
         if i.authorEnglish and i.authorEnglish!= "nan":            
             namesEng.append(i.authorEnglish)
-        if i.authorKorean  and i.authorEnglish!= "nan":
+        if i.authorKorean  and i.authorKorean!= "nan":
             namesKr.append(i.authorKorean)
     newNamesEng = [*set(namesEng)]
     newNamesKr = [*set(namesKr)]
@@ -84,16 +84,7 @@ def updateYear(request):
         year = i.year
         if len(year) > 4 and year.find('.') == -1:
             i.year = i.year[:len(i.year)-1]+'.'+i.year[len(i.year)-1:]
-            # i.save()
-    return render(request, 'message.html', context)
-
-def populateuuid(request):
-    records = Record.objects.all()
-    context = {'message':"Created uuid for all the records in the database"}
-    for i in records:
-        if len(i.year) > 4:
-            i.year = i.year[:len(i.year)-1]+'.'+i.year[len(i.year)-1:]
-            # i.save()
+            i.save()
     return render(request, 'message.html', context)
 
 def populateAlternateNames(request):
@@ -112,14 +103,13 @@ def populateAlternateNames(request):
         if (i.authorKorean != "nan" and i.authorKorean != "" and i.authorKorean != " "):
             i.authorEnglish2 = i.authorEnglish2 + ",".join(authors[i.authorKorean])
             print(i.authorKorean+" : "+i.authorEnglish2)
-            # i.save()
+            i.save()
     return render(request, 'message.html', context)
 
 def changeAnything(request):
     records = Record.objects.all()
-    context = {'message': 'change in database based on what is defined in changeAnything'}
-    for i in records:
-        if i.authorEnglish == "ahn soo-gil": #Find the record to make changes here for updating a record and access the URL
-            i.authorEnglish = "Ahn Soo-Gil"  # Update the record
-        # i.save()
+    context = {'message': 'Will delete the duplicates in the database'}
+        # if i.authorEnglish == "ahn soo-gil": #Find the record to make changes here for updating a record and access the URL
+        #     i.authorEnglish = "Ahn Soo-Gil"  # Update the record
+        # # i.save()
     return render(request, 'message.html', context)
