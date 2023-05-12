@@ -11,13 +11,13 @@ class RecordForm(ModelForm):
         fields = '__all__'
 
 class NewRecordForm(ModelForm):
-	GENRE = [ (1,'Fictions'),
-			(2,'Poems'),
-			(3,'Essays'),
-			(4,'Plays'),
-			(5,'Childrens'),
+	GENRE = [ (1,'Fiction'),
+			(2,'Poetry'),
+			(3,'Essay'),
+			(4,'Play'),
+			(5,"Children’s Literature"),
 			(6,'Classic_General'),
-			(7,'Classic_Poem'),
+			(7,'Classic_Poetry'),
 			(8,'Classic_History'),
 			(9,'Classic_Folk Tale'),
 			(10,'Classic_Fiction'),

@@ -36,14 +36,14 @@ def generateAuthorLinks(names):
     return 0
 
 def populateDatabase(request):
-    df1 = pd.read_csv('/Users/hrithik/Desktop/PC/UofW/work/LibTool/klet/searchtool/data/dataClean.csv')
-    GENRE = (('Fictions'),
-			('Poems'),
-			('Essays'),
-			('Plays'),
-			('Childrens'),
+    df1 = pd.read_csv('/Users/hrithik/Desktop/PC/UofW/work/new/LibTool/klet/searchtool/data/dataWithOutDups.csv')
+    GENRE = (('Fiction'),
+			('Poetry'),
+			('Essay'),
+			('Play'),
+			("Children’s Literature"),
 			('Classic_General'),
-			('Classic_Poem'),
+			('Classic_Poetry'),
 			('Classic_History'),
 			('Classic_Folk Tale'),
 			('Classic_Fiction'),
@@ -108,8 +108,8 @@ def populateAlternateNames(request):
 
 def changeAnything(request):
     records = Record.objects.all()
-    context = {'message': 'Will delete the duplicates in the database'}
+    context = {'message': 'Message required'}
         # if i.authorEnglish == "ahn soo-gil": #Find the record to make changes here for updating a record and access the URL
         #     i.authorEnglish = "Ahn Soo-Gil"  # Update the record
-        # # i.save()
+        # # i.save() 
     return render(request, 'message.html', context)

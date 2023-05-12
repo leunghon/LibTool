@@ -145,7 +145,7 @@
 		<button type="button" id="AdvSearch" class="btn btn-primary" onclick="showDiv()">Advanced Search</button>
 		<div class="col">
 			<h4>Authors Korean</h4>
-			<div class="card card-body overflow-auto" style="height: 2500px;">
+			<div class="card card-body overflow-auto" style="height: 250px;">
 				<ul>
 					{% for krName in NamesKr %}
 						<a class="row" href="{% url 'search' %}?authorKorean={{krName}}">{{krName}}</a>
@@ -153,7 +153,7 @@
 				</ul>
 			</div>
 			<h4>Authors English</h4>
-			<div class="card card-body overflow-auto" style="height: 2500px; margin-bottom: 15px;">
+			<div class="card card-body overflow-auto" style="height: 250px; margin-bottom: 15px;">
 				<ul>
 					{% for engName in NamesEng %}
 						<a class="row" href="{% url 'search' %}?authorEnglish2={{engName}}">{{engName}}</a>
