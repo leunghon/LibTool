@@ -108,8 +108,11 @@ def populateAlternateNames(request):
 
 def changeAnything(request):
     records = Record.objects.all()
-    context = {'message': 'Message required'}
-        # if i.authorEnglish == "ahn soo-gil": #Find the record to make changes here for updating a record and access the URL
-        #     i.authorEnglish = "Ahn Soo-Gil"  # Update the record
-        # # i.save() 
+    context = {'message': 'Changing u˘ with ŭ and o˘ with ŏ'}
+    for i in records:
+        i.authorEnglish = i.authorEnglish.replace("u˘","ŭ")
+        i.authorEnglish2 = i.authorEnglish2.replace("u˘","ŭ")
+        i.authorEnglish = i.authorEnglish.replace("o˘","ŏ")
+        i.authorEnglish2 = i.authorEnglish2.replace("o˘","ŏ")
+        i.save()
     return render(request, 'message.html', context)
