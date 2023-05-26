@@ -26,6 +26,7 @@ def search(request):
     newNamesEng = [i for a,i in enumerate(newNamesEng) if i!=' ']
     newNamesKr = [i for a,i in enumerate(newNamesKr) if i!=' ']
     myFilter = RecordFilter(request.GET, queryset = records)
+    # print(type(myFilter.))
     records = myFilter.qs
     context = {'records':records,'myFilter':myFilter, 'NamesEng':newNamesEng,'NamesKr':newNamesKr}
     return render(request,'search.html',context)
