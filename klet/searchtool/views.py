@@ -37,7 +37,7 @@ def generateAuthorLinks(names):
     return 0
 
 def populateDatabase(request):
-    df1 = pd.read_csv('/Users/hrithik/Desktop/PC/UofW/work/new/LibTool/klet/searchtool/data/dataWithOutDups.csv')
+    df1 = pd.read_csv('/Users/hrithik/Desktop/PC/UofW/work/new/LibTool/klet/searchtool/data/Updates1_WithAlterNames.csv')
     GENRE = (('Fiction'),
 			('Poetry'),
 			('Essay'),
@@ -51,6 +51,7 @@ def populateDatabase(request):
 			('Misc'))
     GenreDict = {'Fiction':0,
 			'Poem': 1,
+            'Poetry': 1,
 			'Essay': 2,
 			'Play':3,
 			'Children':4,
@@ -59,10 +60,15 @@ def populateDatabase(request):
 			'Classic/History':7,
 			'Classic/Folk Tale':8,
 			'Classic/Fiction':9,
-            'Misc.':10}
+            'Misc.':10,
+            'Misc':10,
+            'Graphic Novel':0,
+            'Classic Fiction':9,
+            'Children’s Literature':4,
+            'Classic_Fiction':9}
     for dbframe in df1.itertuples():
         obj = Record.objects.create(genre= GENRE[GenreDict[dbframe.GENRE]],authorEnglish = dbframe.authorEnglish, authorKorean = dbframe.authorKorean, 
-        workTitle = dbframe.workTitle, translator = dbframe.translator, sourceTitle = dbframe.sourceTitle, 
+        workTitle = dbframe.workTitle, translator = dbframe.translator, sourceTitle = dbframe.sourceTitle, workTitleKorean = dbframe.workTitleKorean,
         publisher = dbframe.publisher, yearCreated = dbframe.yearCreated, authorEnglish2 = dbframe.authorEnglish2, year= populateYear(str(dbframe.yearCreated)), uid2 = str(uuid.uuid4()))
         obj.save()
     context = {'message':"Populating database completed"}
