@@ -26,9 +26,17 @@ def search(request):
     newNamesEng = [i for a,i in enumerate(newNamesEng) if i!=' ']
     newNamesKr = [i for a,i in enumerate(newNamesKr) if i!=' ']
     myFilter = RecordFilter(request.GET, queryset = records)
-    # print(type(myFilter.))
+
+    
+    filters = {}
+    filter_criteria = request.GET
+    for i in filter_criteria:
+        filters[i] = filter_criteria[i]
+    filters = {k: v for k, v in filters.items() if v}
+    print(filters)
     records = myFilter.qs
-    context = {'records':records,'myFilter':myFilter, 'NamesEng':newNamesEng,'NamesKr':newNamesKr}
+    context = {'records':records,'myFilter':myFilter, 'NamesEng':newNamesEng,'NamesKr':newNamesKr, 'Filters':filters}
+    # print(type(myFilter.form))
     return render(request,'search.html',context)
 
 def generateAuthorLinks(names):
@@ -48,7 +56,8 @@ def populateDatabase(request):
 			('Classic_History'),
 			('Classic_Folk Tale'),
 			('Classic_Fiction'),
-			('Misc'))
+			('Misc'),
+            ('Graphic Novel'))
     GenreDict = {'Fiction':0,
 			'Poem': 1,
             'Poetry': 1,
@@ -62,7 +71,7 @@ def populateDatabase(request):
 			'Classic/Fiction':9,
             'Misc.':10,
             'Misc':10,
-            'Graphic Novel':0,
+            'Graphic Novel':11,
             'Classic Fiction':9,
             'Children’s Literature':4,
             'Classic_Fiction':9}
@@ -123,3 +132,7 @@ def changeAnything(request):
         i.authorEnglish2 = i.authorEnglish2.replace("o˘","ŏ")
         i.save()
     return render(request, 'message.html', context)
+
+def adminLogin(request):
+    context = {'message': 'Admin Portal in making'}
+    return render(request, 'admin.html', context)

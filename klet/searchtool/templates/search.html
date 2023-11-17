@@ -28,6 +28,14 @@
 	{
 		color:  #4b2e83 !important;
 	}
+	.sorting
+	{
+		font-size: 15px;
+		line-height: 15px;
+		/* spac */
+		color: #4b2e83 !important;
+		opacity: 1 !important;
+	}
 </style>
 <head>
 	<meta charset="UTF-8">
@@ -58,6 +66,17 @@
 					</a>
 				</form>
 			</div>
+			{% if Filters %}
+				<div>
+					<h4>Active Filters</h4>
+					{% for k in Filters %}
+						<button class="btn btn-primary">
+							{{k}}{{Filters.k}}
+						</button>
+					{% endfor %}
+				</div>
+			{% endif %}
+			<!-- <h3>{{Filters}}</h3> -->
 		</div>
 		<br>
 	</div>

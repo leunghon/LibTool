@@ -8,6 +8,7 @@ class Record(models.Model):
 			('Poetry', 'Poetry'),
 			('Essay', 'Essay'),
 			('Play', 'Play'),
+			('Graphic Novel', 'Graphic Novel'),
 			("Children’s Literature", "Children’s Literature"),
 			('Classic_General', 'Classic_General'),
 			('Classic_Poetry', 'Classic_Poetry'),
@@ -58,3 +59,7 @@ class AddRequest(models.Model):
 	uid2 = models.CharField(max_length=100, default="Not Registered yet")
 	other = models.CharField(max_length=300, null=True, blank=True, default="")
 
+class Users(models.Model):
+	userName = models.CharField(max_length=100, null=False, blank=False )
+	userPassword = models.CharField(max_length=100, null=False, blank=False )
+	userEmail = models.CharField(max_length=100, null=True, blank=True, default="" )

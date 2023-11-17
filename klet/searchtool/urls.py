@@ -8,5 +8,6 @@ urlpatterns = [
     path('delete/',views.deleteDatabase),
     path('populateYear/',views.updateYear),
     path('populateAlternames/',views.populateAlternateNames),
-    path('updateRec/',views.changeAnything)
+    path('updateRec/',views.changeAnything),
+    path('admin/', views.adminLogin)
 ]
