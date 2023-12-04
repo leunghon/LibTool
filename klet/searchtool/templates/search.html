@@ -196,7 +196,23 @@
 					{% endfor %}
 				</ul>
 			</div>
-		</div>
+			<!-- Genre Filter -->
+			<h4>Genre</h4>
+				<div class="card card-body">
+    				<select id="genre-select" name="genre">
+        				{% for genre in Genres %}
+            			<option value="{{ genre }}">{{ genre }}</option>
+        				{% endfor %}
+    				</select>
+				</div>
+
+			<!-- Year Filter -->
+			<h4>Year</h4>
+				<div class="card card-body">
+					<input type="number" id="year-start" name="year_start" placeholder="Start Year">
+					<input type="number" id="year-end" name="year_end" placeholder="End Year">
+				</div>
+			</div>
 		<!-- Button -->
 		<!-- <button class="btn btn-primary" >New Record</button> -->
 		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
@@ -265,6 +281,16 @@
 			document.getElementById('AdvSearch').className="btn btn-primary";
 			document.getElementById('AdvSearch').innerHTML="Advanced Search";
 		}
+	}
+	function autoSubmitSearch() {
+    var baseUrl = "{% url 'search' %}";
+    var authorKorean = getSelectedValue('authorKorean'); // Assuming you have a function to get selected author
+    var authorEnglish = getSelectedValue('authorEnglish2'); // Similarly for English author
+    var genre = document.getElementById('genreSelect').value; // Get genre value
+    var year = document.getElementById('yearInput').value; // Get year value
+
+    var searchUrl = baseUrl + "?authorKorean=" + authorKorean + "&authorEnglish2=" + authorEnglish + "&genre=" + genre + "&year=" + year;
+    window.location.href = searchUrl;
 	}
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>

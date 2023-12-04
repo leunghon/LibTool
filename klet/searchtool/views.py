@@ -15,29 +15,40 @@ def search(request):
     namesEng = []
     namesKr = []
     for i in records:
-        if i.authorEnglish and i.authorEnglish!= "nan":            
+        if i.authorEnglish and i.authorEnglish != "nan":            
             namesEng.append(i.authorEnglish)
-        if i.authorKorean  and i.authorKorean!= "nan":
+        if i.authorKorean and i.authorKorean != "nan":
             namesKr.append(i.authorKorean)
     newNamesEng = [*set(namesEng)]
     newNamesKr = [*set(namesKr)]
     newNamesEng.sort()
     newNamesKr.sort()
-    newNamesEng = [i for a,i in enumerate(newNamesEng) if i!=' ']
-    newNamesKr = [i for a,i in enumerate(newNamesKr) if i!=' ']
-    myFilter = RecordFilter(request.GET, queryset = records)
+    newNamesEng = [i for a, i in enumerate(newNamesEng) if i != ' ']
+    newNamesKr = [i for a, i in enumerate(newNamesKr) if i != ' ']
 
-    
+    # Retrieve genre and year from the request
+    genre = request.GET.get('genre', None)
+    year = request.GET.get('year', None)
+
+    # Apply filters
+    if genre:
+        records = records.filter(genre=genre)
+    if year:
+        records = records.filter(yearCreated=year)
+
+    myFilter = RecordFilter(request.GET, queryset=records)
+    records = myFilter.qs
+
     filters = {}
     filter_criteria = request.GET
     for i in filter_criteria:
         filters[i] = filter_criteria[i]
     filters = {k: v for k, v in filters.items() if v}
     print(filters)
-    records = myFilter.qs
-    context = {'records':records,'myFilter':myFilter, 'NamesEng':newNamesEng,'NamesKr':newNamesKr, 'Filters':filters}
-    # print(type(myFilter.form))
-    return render(request,'search.html',context)
+
+    context = {'records': records, 'myFilter': myFilter, 'NamesEng': newNamesEng, 'NamesKr': newNamesKr, 'Filters': filters}
+    return render(request, 'search.html', context)
+
 
 def generateAuthorLinks(names):
     for i in names:
